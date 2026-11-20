@@ -1,0 +1,90 @@
+[
+  {
+    "id" : 1,
+    "name" : "Azul",
+    "minPlayers" : 2,
+    "maxPlayers" : 4,
+    "playTimeMinutes" : 30,
+    "minAge": 8, 
+    "category" : "Abstract Strategy",
+    "rating" : 4,
+    "description" : "A colorful tile-drafting game where players select tiles to decorate a palace wall, creating beautiful patterns and earning points through strategic placement."
+  },
+  {
+    "id" : 2,
+    "name" : "Seasons",
+    "minPlayers" : 2,
+    "maxPlayers" : 4,
+    "playTimeMinutes" : 60,
+    "minAge": 14,
+    "category" : "Fantasy Strategy",
+    "rating" : 6 ,
+    "description" : "A magical strategy game where players compete as powerful sorcerers, drafting cards, rolling seasonal dice, and collecting energy to summon magical items and earn crystals. Build powerful combinations to become the kingdom's next archmage."
+  },
+  {
+    "id" : 3,
+    "name" : "Takenoko",
+    "minPlayers" : 2,
+    "maxPlayers" : 4,
+    "playTimeMinutes" : 45,
+    "minAge": 8,
+    "category" : "Family Strategy",
+    "rating" : 5,
+    "description" : "A charming board game set in a Japanese bamboo garden, where players grow bamboo, irrigate plots, and guide a hungry panda while completing objectives to earn points." 
+  },
+  {
+    "id" : 4,
+    "name" : "Arkham Horror - The Card Game",
+    "minPlayers" : 1,
+    "maxPlayers" : 4,
+    "playTimeMinutes" : 45 ,
+    "minAge": 14,
+    "category" : "Cooperative Horror Adventure",
+    "rating" : 6,
+    "description" : "A thrilling cooperative adventure set in the mysterious city of Arkham during the 1920s. Players become investigators, uncover dark secrets, battle terrifying monsters, and work together to prevent ancient cosmic horrors from destroying the world."
+  },
+  {
+    "id" : 5,
+    "name" : "Everdell",
+    "minPlayers" : 1,
+    "maxPlayers" : 4,
+    "playTimeMinutes" : 60,
+    "minAge": 14,
+    "category" : "Fantasy Strategy / Worker Placement",
+    "rating" : 6,
+    "description" : "A charming strategy game set in a magical woodland, where players lead groups of forest creatures, gather resources, construct buildings, and develop thriving cities through the changing seasons. Combine clever planning with beautiful cards to create the most prosperous settlement."
+  },
+  {
+    "id" : 6,
+    "name" : "Ugg-Tect",
+    "minPlayers" : 2,
+    "maxPlayers" : 8,
+    "playTimeMinutes" : 45,
+    "minAge": 8,
+    "category" : "Party / Team-Based Game",
+    "rating" : 5,
+    "description" : "A hilarious prehistoric party game where players work in teams to build Stone Age monuments. One player acts as the caveman architect, guiding teammates using only primitive sounds, gestures, and a funny inflatable club. Communication, teamwork, and plenty of laughter are the keys to victory!"
+  },
+  {
+    "id" : 7,
+    "name" : "Shadows Over Camelot" ,
+    "minPlayers" : 3,
+    "maxPlayers" : 7,
+    "playTimeMinutes" : 60,
+    "minAge": 10,
+    "category" : "Cooperative Fantasy / Hidden Traitor" ,
+    "rating" : 6,
+    "description" : "An immersive cooperative adventure set in the legendary world of King Arthur. Players become Knights of the Round Table, working together to complete heroic quests, defend Camelot, and battle dark forces. But beware — a secret traitor may be hiding among the knights, threatening the kingdom from within!"
+  },
+  {
+    "id" : 8,
+    "name" : "Photosynthesis",
+    "minPlayers" : 2,
+    "maxPlayers" : 4,
+    "playTimeMinutes" : 45,
+    "minAge": 8,
+    "category" : "Abstract Strategy / Nature",
+    "rating" : 5,
+    "description" : "A beautiful strategy game where players compete to grow the most successful forest. Plant seeds, grow trees, and collect sunlight as the sun moves around the board. Carefully position your trees to cast shadows on opponents and earn victory points throughout the forest's life cycle."
+  }
+]

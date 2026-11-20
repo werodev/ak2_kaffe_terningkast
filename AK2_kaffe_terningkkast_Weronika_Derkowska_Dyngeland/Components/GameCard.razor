@@ -1,0 +1,17 @@
+﻿<div class="game-card">
+    <div class="card-header">
+        <h4>@Game.Name</h4>
+        <p>Category: @Game.Category</p>
+    </div>
+    <div class="card-body">
+    <p>@Game.MinPlayers - @Game.MaxPlayers players </p>
+    <p>Age: @Game.MinAge+</p>
+    <p>Takes around: @Game.PlayTimeMinutes minutes to play</p>
+    <p>Rating: @Game.Rating</p>
+    <p>Description: @Game.Description</p>
+    </div>
+</div>
+
+@code {
+    [Parameter] public BoardGame Game { get; set; } = new();
+}
