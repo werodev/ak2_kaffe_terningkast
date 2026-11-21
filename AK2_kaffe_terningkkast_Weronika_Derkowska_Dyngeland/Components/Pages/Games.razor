@@ -1,6 +1,11 @@
-﻿@page "/games"
+﻿@page "/"
+@page "/games"
 @inject GameApiClient Api
 
+<div class="d-flex flex-wrap gap-3 fw-bold opacity-75">
+    <p>Find a game:</p>
+    <input type="text" @bind="gameSearch" @bind:event="oninput"/>
+</div>
 
 @if (games is null)
 {
@@ -10,7 +15,7 @@ else
 {
     <h3 class="text-center text-body-emphasis">Spillhylla</h3>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-        @foreach (var game in games)
+        @foreach (var game in FoundGames)
         {
             <div class="col">
                 <GameCard Game="game"/>
@@ -19,12 +24,12 @@ else
     </div>
 }
 
-
-
 @code {
     List<BoardGame>? games;
     protected override async Task OnInitializedAsync()
     {
         games = await Api.GetBoardGamesAsync();
     }
+    private string? gameSearch;
+    private IEnumerable<BoardGame> FoundGames => games?.Where(game => string.IsNullOrWhiteSpace(gameSearch) || game.Name.Contains(gameSearch,  StringComparison.OrdinalIgnoreCase)) ?? Enumerable.Empty<BoardGame>();
 }
