@@ -1,0 +1,58 @@
+﻿@page "/games/{Id:int}"
+@inject GameApiClient Api
+@inject NavigationManager Navigation
+
+@if (games == null)
+{
+    <p>Loading...</p>
+}
+else if (Game == null)
+{
+    <p>There is no such game with this id</p>
+    <div class="d-flex justify-content-center m-3">
+        <button class="btn btn-outline-secondary" onclick="@GoBack">Back to games</button>
+    </div>
+}
+else
+{
+    <div class="page">
+        <div class="card-header">
+            <h4>@Game.Name</h4>
+            <p>Category: @Game.Category</p>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-wrap gap-3 fw-bold opacity-75">
+                <p>@Game.MinPlayers - @Game.MaxPlayers players </p>
+                <p>Age: @Game.MinAge+</p>
+                <p>Takes around @Game.PlayTimeMinutes minutes</p>
+                <p>Rating: <DiceRating @bind-Value="@Game.Rating" /></p>
+            </div>
+            <p>Description: @Game.Description</p>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center m-3">
+        <button class="btn btn-outline-secondary" onclick="@GoBack">Back to games</button>
+    </div>
+}
+
+
+@code {
+    [Parameter] public int Id { get; set;}
+    List<BoardGame>? games;
+    private BoardGame? Game;
+
+    private BoardGame? GetGameById(int id)
+    {
+        return games?.FirstOrDefault(game => game.Id == id);
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        games = await Api.GetBoardGamesAsync();
+        Game = GetGameById(Id);
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/games/");
+    }
+}
