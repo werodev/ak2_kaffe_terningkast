@@ -4,11 +4,13 @@
         <p>Category: @Game.Category</p>
     </div>
     <div class="card-body">
-    <p>@Game.MinPlayers - @Game.MaxPlayers players </p>
-    <p>Age: @Game.MinAge+</p>
-    <p>Takes around: @Game.PlayTimeMinutes minutes to play</p>
-    <p>Rating: @Game.Rating</p>
-    <p>Description: @Game.Description</p>
+        <div class="d-flex flex-wrap gap-3 fw-bold opacity-75">
+        <p>@Game.MinPlayers - @Game.MaxPlayers players </p>
+        <p>Age: @Game.MinAge+</p>
+        <p>Takes around @Game.PlayTimeMinutes minutes</p>
+        <p>Rating: @Game.Rating</p>
+        </div>
+        <p>Description: @Game.Description</p>
     </div>
 </div>
 

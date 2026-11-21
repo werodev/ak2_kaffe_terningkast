@@ -4,7 +4,7 @@ namespace BlazorApp1.Components;
 
 
 public class GameApiClient (HttpClient http)
-{git ststus
+{
     // GET
     public async Task<List<BoardGame>?> GetBoardGamesAsync() 
         => await http.GetFromJsonAsync<List<BoardGame>>("api/games");

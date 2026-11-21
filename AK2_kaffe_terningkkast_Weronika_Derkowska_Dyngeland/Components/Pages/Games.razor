@@ -7,12 +7,18 @@
     <p>Loading boardgames...</p>
 }
 else
-    foreach (var game in games)
-    {
-        <GameCard Game="game"/>
-    }
+{
+    <h3 class="text-center text-body-emphasis">Spillhylla</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        @foreach (var game in games)
+        {
+            <div class="col">
+                <GameCard Game="game"/>
+            </div>
+        }
+    </div>
+}
 
-<h3>Kafe Terningkast</h3>
 
 
 @code {
