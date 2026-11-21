@@ -3,9 +3,16 @@
 @inject GameApiClient Api
 
 <div class="d-flex flex-wrap gap-3 fw-bold opacity-75">
-    <p>Find a game:</p>
-    <input type="text" @bind="gameSearch" @bind:event="oninput"/>
+    <div class="d-flex flex-wrap gap-3 fw-bold opacity-75 border-1">
+        <p>Find a game:</p>
+        <input type="text" @bind="gameSearch" @bind:event="oninput"/>
+    </div>
+    <div class="d-flex flex-wrap gap-3 fw-bold opacity-75 border-1">
+        <p>Number of Players:</p>
+        <input type="text" @bind="playersNumber" @bind:event="oninput"/>
+    </div>
 </div>
+<p>Found @FoundGames.Count() games</p>
 
 @if (games is null)
 {
@@ -39,11 +46,17 @@ else
         games = await Api.GetBoardGamesAsync();
     }
     private string? gameSearch;
+    private int? playersNumber;
     private IEnumerable<BoardGame> FoundGames => 
         games?.Where(game =>                                // is checking games where
-            string.IsNullOrWhiteSpace(gameSearch) ||        // input is not null or whitespace -> if it is we show all the games on the list 
+            (string.IsNullOrWhiteSpace(gameSearch) ||        // input is not null or whitespace -> if it is we show all the games on the list 
             game.Name.Contains(                             // and if game name contains typed in value
                 gameSearch,  
-                StringComparison.OrdinalIgnoreCase)) ??     // ignore the case - input might be with small or big characters and we want search to ignore it 
+                StringComparison.OrdinalIgnoreCase))        // ignore the case - input might be with small or big characters and we want search to ignore it 
+        &&                                                  // need to meet also conditions for players number
+        (playersNumber == null || 
+        playersNumber == 0 ||
+        (playersNumber >= game.MinPlayers && playersNumber <= game.MaxPlayers)))??
+        
         Enumerable.Empty<BoardGame>();                      // if empty we show empty list
 }
