@@ -14,14 +14,22 @@
 else
 {
     <h3 class="text-center text-body-emphasis">Spillhylla</h3>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-        @foreach (var game in FoundGames)
-        {
-            <div class="col">
-                <GameCard Game="game"/>
-            </div>
-        }
-    </div>
+    if (!FoundGames.Any())
+    {
+        <p>Didn't found it</p>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+            @foreach (var game in FoundGames)
+            {
+                <div class="col">
+                    <GameCard Game="game"/>
+                </div>
+            }
+        </div>
+    }
+    
 }
 
 @code {
@@ -31,5 +39,11 @@ else
         games = await Api.GetBoardGamesAsync();
     }
     private string? gameSearch;
-    private IEnumerable<BoardGame> FoundGames => games?.Where(game => string.IsNullOrWhiteSpace(gameSearch) || game.Name.Contains(gameSearch,  StringComparison.OrdinalIgnoreCase)) ?? Enumerable.Empty<BoardGame>();
+    private IEnumerable<BoardGame> FoundGames => 
+        games?.Where(game =>                                // is checking games where
+            string.IsNullOrWhiteSpace(gameSearch) ||        // input is not null or whitespace -> if it is we show all the games on the list 
+            game.Name.Contains(                             // and if game name contains typed in value
+                gameSearch,  
+                StringComparison.OrdinalIgnoreCase)) ??     // ignore the case - input might be with small or big characters and we want search to ignore it 
+        Enumerable.Empty<BoardGame>();                      // if empty we show empty list
 }
