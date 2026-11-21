@@ -1,4 +1,4 @@
-﻿<div class="game-card">
+﻿<div class="@(IsSelected ? "selected-card" : "game-card")">
     <div class="card-header">
         <h4>@Game.Name</h4>
         <p>Category: @Game.Category</p>
@@ -16,4 +16,5 @@
 
 @code {
     [Parameter] public BoardGame Game { get; set; } = new();
+    [Parameter] public bool IsSelected { get; set; }  // it's false by default
 }

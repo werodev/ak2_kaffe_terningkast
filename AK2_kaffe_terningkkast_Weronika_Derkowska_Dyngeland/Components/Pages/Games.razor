@@ -11,6 +11,9 @@
         <p>Number of Players:</p>
         <input type="text" @bind="playersNumber" @bind:event="oninput"/>
     </div>
+    <div class="d-flex flex-wrap gap-3 fw-bold opacity-75 border-1">
+        <button @onclick="Terningkast">Terningkast</button>
+    </div>
 </div>
 <p>Found @FoundGames.Count() games</p>
 
@@ -29,12 +32,12 @@ else
     {
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
             @foreach (var game in FoundGames)
-            {
+            { 
                 <div class="col">
-                    <GameCard Game="game"/>
+                    <GameCard Game="game" IsSelected="@(selectedGame != null && game.Id == selectedGame.Id)"/>
                 </div>
             }
-        </div>
+        </div>            
     }
     
 }
@@ -47,6 +50,8 @@ else
     }
     private string? gameSearch;
     private int? playersNumber;
+    private BoardGame? selectedGame;
+    
     private IEnumerable<BoardGame> FoundGames => 
         games?.Where(game =>                                // is checking games where
             (string.IsNullOrWhiteSpace(gameSearch) ||        // input is not null or whitespace -> if it is we show all the games on the list 
@@ -56,7 +61,15 @@ else
         &&                                                  // need to meet also conditions for players number
         (playersNumber == null || 
         playersNumber == 0 ||
-        (playersNumber >= game.MinPlayers && playersNumber <= game.MaxPlayers)))??
+        (playersNumber >= game.MinPlayers && playersNumber <= game.MaxPlayers)))
         
+        ??
         Enumerable.Empty<BoardGame>();                      // if empty we show empty list
+
+    private void Terningkast()
+    {
+        var results = FoundGames.ToList();
+        int diceRoll = Random.Shared.Next(0, results.Count);
+        selectedGame= results[diceRoll];
+    }
 }
