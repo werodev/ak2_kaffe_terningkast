@@ -15,18 +15,28 @@
         </div>
         <p>Description: @Game.Description</p>
     </div>
-    <div class="d-flex justify-content-end m-3 position-relative z-2">
-        <button class="btn btn-outline-secondary" @onclick="OnAddClicked">Add to Min spillekveld</button>
-    </div>
 </div>
-
-
+<div class="d-flex justify-content-end m-3 position-relative z-2">
+@if(!IsInGameNight)
+{
+    <button class="btn btn-outline-secondary m-3" @onclick="OnAddClicked">Add to Min spillekveld</button>
+}
+else
+{
+    <button class="btn btn-outline-secondary m-3" @onclick="OnRemoveClicked">Remove game from Spillkveld</button>
+}
+</div>
 
 @code {
     [Parameter] public BoardGame Game { get; set; } = new();
     [Parameter] public bool IsSelected { get; set; }  // it's false by default
+    [Parameter] public bool IsInGameNight { get; set; }
     [Parameter] public EventCallback<int> OnAdd { get; set; }
+    [Parameter] public EventCallback<int> OnRemove { get; set; }
     
     private async Task OnAddClicked()
         => await OnAdd.InvokeAsync(Game.Id);
+
+    private async Task OnRemoveClicked()
+        => await OnRemove.InvokeAsync(Game.Id);
 }

@@ -1,6 +1,8 @@
 ﻿@page "/games/{Id:int}"
+@using BlazorApp1.State
 @inject GameApiClient Api
 @inject NavigationManager Navigation
+@inject GameNightState GameNight
 
 @if (games == null)
 {
@@ -10,7 +12,7 @@ else if (Game == null)
 {
     <p>There is no such game with this id</p>
     <div class="d-flex justify-content-center m-3">
-        <button class="btn btn-outline-secondary" onclick="@GoBack">Back to games</button>
+        <button class="btn btn-outline-secondary" @onclick="GoBack">Back to games</button>
     </div>
 }
 else
@@ -30,8 +32,16 @@ else
             <p>Description: @Game.Description</p>
         </div>
     </div>
-    <div class="d-flex justify-content-center m-3">
-        <button class="btn btn-outline-secondary" onclick="@GoBack">Back to games</button>
+    <div class="d-flex justify-content-start m-3">
+    @if(!GameNight.SelectedGames.Any(g => g.Id == Game.Id))
+    {
+        <button class="btn btn-outline-secondary m-3" @onclick="OnAddClicked">Add to Min spillekveld</button>
+    }
+    else
+    {
+    <button class="btn btn-outline-secondary m-3" @onclick="() => GameNight.RemoveGame(Game!.Id)">Remove from Spillkveld</button>  
+    }
+    <button class="btn btn-outline-secondary m-3" @onclick="GoBack">Back to games</button>
     </div>
 }
 
@@ -54,5 +64,12 @@ else
     private void GoBack()
     {
         Navigation.NavigateTo("/games/");
+    }
+
+    private void OnAddClicked()
+    {
+        if (Game is null)
+            return;
+        GameNight.AddGame(Game);
     }
 }

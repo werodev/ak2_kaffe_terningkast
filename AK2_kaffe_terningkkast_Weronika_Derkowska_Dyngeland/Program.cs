@@ -1,5 +1,6 @@
 using System.Text.Json;
 using BlazorApp1.Components;
+using BlazorApp1.State;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddHttpClient<GameApiClient>(client => client.BaseAddress = new Uri(builder.Configuration["GameApi:BaseUrl"] ?? throw new InvalidOperationException("GameApi BaseUrl is missing")));
+builder.Services.AddScoped<GameNightState, GameNightState>();
 
 var app = builder.Build();
 

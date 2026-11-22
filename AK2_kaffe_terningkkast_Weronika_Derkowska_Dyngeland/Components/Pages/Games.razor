@@ -1,5 +1,7 @@
 ﻿@page "/games"
 @inject GameApiClient Api
+@using BlazorApp1.State
+@inject GameNightState GameNight
 
 <div class="d-flex flex-wrap gap-3 fw-bold opacity-75">
     <div class="d-flex flex-wrap gap-3 fw-bold opacity-75 border-1">
@@ -38,12 +40,11 @@ else
             @foreach (var game in FoundGames)
             { 
                 <div class="col">
-                    <GameCard Game="game" IsSelected="@(selectedGame != null && game.Id == selectedGame.Id)" OnAdd="HandleAdd"/>
+                    <GameCard Game="game" IsSelected="@(selectedGame != null && game.Id == selectedGame.Id)" IsInGameNight="@(GameNight.SelectedGames.Any(g => g.Id == game.Id))" OnAdd="HandleAdd" OnRemove="HandleRemove"/>
                 </div>
             }
         </div>            
     }
-    
 }
 
 @code {
@@ -85,7 +86,17 @@ else
     private void HandleAdd(int gameId)
     {
         var pickedGame = games?.FirstOrDefault(game => game.Id == gameId);
+        if (pickedGame is null)
+            return;
+        bool added = GameNight.AddGame(pickedGame);
+        if (added)
+        {
         addMessage = $"{pickedGame?.Name} was added";
+        }
     }
 
+    private void HandleRemove(int gameId)
+    {
+        GameNight.RemoveGame(gameId);
+    }
 }

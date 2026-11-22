@@ -1,4 +1,8 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using BlazorApp1.State
+@inject GameNightState GameNight
+@implements IDisposable
+ 
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Kaffe Terningkast</a>
     </div>
@@ -21,9 +25,26 @@
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/SpillKveld">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Min Spillkveld
+            <NavLink class="nav-link" href="/game-night">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Min Spillkveld (@GameNight.Count)
             </NavLink>
         </div>
     </nav>
 </div>
+
+@* Event listener - subscription *@
+@code {
+    protected override void OnInitialized() // is done when component is created
+    {
+        GameNight.OnChange += HandleStateChange;
+    }
+    private async void HandleStateChange()  // refresh menu when the game list is changing
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        GameNight.OnChange -= HandleStateChange; // when Blazor removes NavMenu it's triggering Dispose and removing subscription for HandleStateChange / removing event listener
+    }
+} 
